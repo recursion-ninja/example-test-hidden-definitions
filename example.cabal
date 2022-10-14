@@ -1,0 +1,65 @@
+Cabal-Version:    3.8
+Name:             example
+Version:          1.2.0
+Stability:        Stable
+Build-Type:       Simple
+Tested-With:
+  GHC == 9.4.2
+
+Author:           Alex Washburn
+Copyright:        (c) Alex Washburn 2022
+License:          CC-BY-SA-4.0
+License-File:     LICENSE
+
+Maintainer:       hackage@recursion.ninja
+Homepage:         https://github.com/recursion-ninja/example-test-hidden-definitions
+Bug-Reports:      https://github.com/recursion-ninja/example-test-hidden-definitions/issues
+
+Synopsis:         Example of testing internal definitions
+Category:         Testing
+
+Source-Repository head
+  type:     git
+  location: https://github.com/recursion-ninja/example-test-hidden-definitions
+
+
+Library
+
+  build-depends:
+    base >=4.16 && <5,
+    example:example-internals,
+
+  reexported-modules:
+    Foo
+
+
+Library example-internals
+
+  build-depends:
+    base >=4.13 && <5
+
+  exposed-modules:
+    Foo
+    Foo.Internal
+
+  hs-source-dirs:
+    src
+
+  visibility:
+    private
+
+
+Test-Suite test-foo
+
+  type:
+    exitcode-stdio-1.0
+
+  main-is:
+    TestFoo.hs
+
+  build-depends:
+    base >=4.13 && <5,
+    example:example-internals,
+
+  hs-source-dirs:
+    test
